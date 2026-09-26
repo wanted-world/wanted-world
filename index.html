@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANTED WORLD — Enter The World</title>
+  <meta name="description" content="WANTED WORLD — apparel for those who refuse to blend in.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="announcement">FIRST DROP — LIMITED QUANTITY</div>
+
+  <header class="site-header">
+    <a class="brand-mark" href="#top" aria-label="WANTED WORLD home">
+      <img src="assets/logo.jpeg" alt="WANTED WORLD logo">
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#shop">SHOP</a>
+      <a href="#story">THE WORLD</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+
+    <button class="cart-button" id="cartOpen" aria-label="Open cart">
+      BAG <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">WANTED WORLD / 001</p>
+        <h1>BY ANY<br>MEANS<br>NECESSARY</h1>
+        <p class="hero-text">A world for the unruly, the different and the unapologetic.</p>
+        <a class="button button-light" href="#shop">SHOP THE FIRST DROP</a>
+      </div>
+      <div class="hero-image">
+        <img src="assets/mugshot-tee.png" alt="WANTED WORLD black mugshot graphic T-shirt">
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Brand statement">
+      <div>WANTED WORLD · BY ANY MEANS NECESSARY · WANTED WORLD · BY ANY MEANS NECESSARY · </div>
+    </section>
+
+    <section class="drop" id="shop">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">001 / FIRST DROP</p>
+          <h2>WANTED NO. 1</h2>
+        </div>
+        <p class="section-note">Limited first release.<br>Built to be noticed.</p>
+      </div>
+
+      <article class="product-card">
+        <button class="product-image" id="quickView" aria-label="View WANTED NO. 1">
+          <img src="assets/mugshot-tee.png" alt="WANTED NO. 1">
+          <span class="view-label">QUICK VIEW +</span>
+        </button>
+        <div class="product-info">
+          <div>
+            <h3>WANTED NO. 1</h3>
+            <p>Black heavyweight graphic tee · WANTED WORLD 001</p>
+          </div>
+          <div class="product-price">₦XX,XXX</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="statement" id="story">
+      <div class="statement-label">THE WORLD</div>
+      <div class="statement-content">
+        <p class="big-copy">WANTED isn't about being accepted.</p>
+        <p>WANTED WORLD is built around individuality — the people who move differently, dress differently and create their own lane.</p>
+        <p>Every piece is a statement. Every drop adds another chapter.</p>
+        <a href="#contact" class="text-link">ENTER THE WORLD →</a>
+      </div>
+    </section>
+
+    <section class="campaign">
+      <div class="campaign-image">
+        <img src="assets/mugshot-tee.png" alt="WANTED WORLD campaign piece">
+      </div>
+      <div class="campaign-copy">
+        <p class="eyebrow">DROP 001</p>
+        <h2>YOU'VE BEEN<br>WANTED.</h2>
+        <p>The first piece from WANTED WORLD. Limited quantities. No restocks promised.</p>
+        <a class="button button-dark" href="#shop">GET YOURS</a>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <p class="eyebrow">STAY CONNECTED</p>
+      <h2>WELCOME TO<br>THE FAMILY.</h2>
+      <p>Follow the world as it grows.</p>
+      <div class="contact-links">
+        <a href="https://instagram.com/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+        <a href="https://wa.me/" target="_blank" rel="noopener">WHATSAPP ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">WANTED WORLD</div>
+    <div>© 2026 WANTED WORLD</div>
+    <a href="#top">BACK TO TOP ↑</a>
+  </footer>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-head">
+      <h2>YOUR BAG</h2>
+      <button id="cartClose" aria-label="Close cart">×</button>
+    </div>
+    <div id="cartItems" class="cart-items">
+      <p class="empty-cart">Your bag is empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>TOTAL</span><strong id="cartTotal">₦0</strong></div>
+      <button class="button button-dark full" id="checkout">ORDER VIA WHATSAPP</button>
+      <small>Checkout is currently handled through WhatsApp. Add your real WhatsApp number in <code>script.js</code>.</small>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal-inner">
+      <button class="modal-close" id="modalClose" aria-label="Close product">×</button>
+      <div class="modal-image"><img src="assets/mugshot-tee.png" alt="WANTED NO. 1"></div>
+      <div class="modal-details">
+        <p class="eyebrow">WANTED WORLD / 001</p>
+        <h2>WANTED NO. 1</h2>
+        <p class="modal-price">₦XX,XXX</p>
+        <p>Black heavyweight tee featuring the WANTED WORLD mugshot graphic and signature WW sleeve mark.</p>
+        <div class="sizes">
+          <button data-size="S">S</button>
+          <button data-size="M">M</button>
+          <button data-size="L">L</button>
+          <button data-size="XL">XL</button>
+        </div>
+        <button class="button button-dark full" id="addToCart">ADD TO BAG</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
