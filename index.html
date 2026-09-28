@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WANTED WORLD — Enter The World</title>
-  <meta name="description" content="WANTED WORLD — apparel for those who refuse to blend in.">
+  <meta name="description" content="WANTED WORLD — WANTED NO. 1. By Any Means Necessary.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="intro" id="intro" aria-label="WANTED NO. 1 campaign intro">
+    <video id="introVideo" autoplay muted playsinline preload="auto">
+      <source src="assets/wanted-no1-intro.mp4" type="video/mp4">
+    </video>
+    <button class="intro-skip" id="introSkip">SKIP →</button>
+  </div>
+
   <div class="announcement">FIRST DROP — LIMITED QUANTITY</div>
 
   <header class="site-header">
@@ -54,7 +61,7 @@
 
       <article class="product-card">
         <button class="product-image" id="quickView" aria-label="View WANTED NO. 1">
-          <img src="assets/mugshot-tee.png" alt="WANTED NO. 1">
+          <img src="assets/product-mockup.png" alt="WANTED NO. 1 black graphic T-shirt">
           <span class="view-label">QUICK VIEW +</span>
         </button>
         <div class="product-info">
@@ -62,7 +69,7 @@
             <h3>WANTED NO. 1</h3>
             <p>Black heavyweight graphic tee · WANTED WORLD 001</p>
           </div>
-          <div class="product-price">₦XX,XXX</div>
+          <div class="product-price"><span class="old-price">₦20,000</span> <strong>₦15,000</strong></div>
         </div>
       </article>
     </section>
@@ -79,7 +86,7 @@
 
     <section class="campaign">
       <div class="campaign-image">
-        <img src="assets/mugshot-tee.png" alt="WANTED WORLD campaign piece">
+        <img src="assets/product-flat.jpeg" alt="WANTED NO. 1 product detail">
       </div>
       <div class="campaign-copy">
         <p class="eyebrow">DROP 001</p>
@@ -94,8 +101,9 @@
       <h2>WELCOME TO<br>THE FAMILY.</h2>
       <p>Follow the world as it grows.</p>
       <div class="contact-links">
-        <a href="https://instagram.com/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
-        <a href="https://wa.me/" target="_blank" rel="noopener">WHATSAPP ↗</a>
+        <a href="https://www.snapchat.com/add/wantedworld2026" target="_blank" rel="noopener">SNAPCHAT ↗</a>
+        <a href="https://wa.me/2349169980427" target="_blank" rel="noopener">WHATSAPP ↗</a>
+        <a href="mailto:wantedworld2026@gmail.com">EMAIL ↗</a>
       </div>
     </section>
   </main>
@@ -115,9 +123,29 @@
       <p class="empty-cart">Your bag is empty.</p>
     </div>
     <div class="cart-footer">
-      <div class="cart-total"><span>TOTAL</span><strong id="cartTotal">₦0</strong></div>
+      <div class="cart-total"><span>ITEMS</span><strong id="cartSubtotal">₦0</strong></div>
+      <div class="delivery-row"><span>DELIVERY</span><strong id="deliveryFee">Select location</strong></div>
+      <div class="cart-total grand-total"><span>TOTAL</span><strong id="cartTotal">₦0</strong></div>
+
+      <div class="order-form">
+        <p class="form-title">ORDER DETAILS</p>
+        <label>FULL NAME<input id="customerName" type="text" autocomplete="name" placeholder="Your full name"></label>
+        <label>PHONE NUMBER<input id="customerPhone" type="tel" autocomplete="tel" placeholder="Your phone number"></label>
+        <label>WHATSAPP NUMBER<input id="customerWhatsApp" type="tel" placeholder="Your WhatsApp number"></label>
+        <label>DELIVERY LOCATION
+          <select id="deliveryLocation">
+            <option value="">Select location</option>
+            <option value="lagos">Lagos — Free delivery</option>
+            <option value="abuad">ABUAD — Free delivery</option>
+            <option value="other">Other location — ₦6,000 delivery</option>
+          </select>
+        </label>
+        <label>DELIVERY ADDRESS<textarea id="deliveryAddress" rows="3" placeholder="Full delivery address"></textarea></label>
+      </div>
+
       <button class="button button-dark full" id="checkout">ORDER VIA WHATSAPP</button>
-      <small>Checkout is currently handled through WhatsApp. Add your real WhatsApp number in <code>script.js</code>.</small>
+      <div id="orderReference" class="order-reference" aria-live="polite"></div>
+      <small>Payment is completed through WhatsApp after your order details are confirmed.</small>
     </div>
   </aside>
   <div class="overlay" id="overlay"></div>
@@ -125,17 +153,34 @@
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal-inner">
       <button class="modal-close" id="modalClose" aria-label="Close product">×</button>
-      <div class="modal-image"><img src="assets/mugshot-tee.png" alt="WANTED NO. 1"></div>
+      <div class="modal-image">
+        <div class="gallery-main"><img id="galleryMain" src="assets/product-mockup.png" alt="WANTED NO. 1"></div>
+        <div class="gallery-thumbs" aria-label="Product images">
+          <button class="gallery-thumb active" data-image="assets/product-mockup.png"><img src="assets/product-mockup.png" alt="Product mockup"></button>
+          <button class="gallery-thumb" data-image="assets/product-detail.jpeg"><img src="assets/product-detail.jpeg" alt="Product detail"></button>
+          <button class="gallery-thumb" data-image="assets/product-worn.jpeg"><img src="assets/product-worn.jpeg" alt="Product worn"></button>
+          <button class="gallery-thumb" data-image="assets/product-flat.jpeg"><img src="assets/product-flat.jpeg" alt="Product flat lay"></button>
+          <button class="gallery-thumb" data-image="assets/product-art.jpeg"><img src="assets/product-art.jpeg" alt="WANTED graphic detail"></button>
+        </div>
+      </div>
       <div class="modal-details">
         <p class="eyebrow">WANTED WORLD / 001</p>
         <h2>WANTED NO. 1</h2>
-        <p class="modal-price">₦XX,XXX</p>
+        <p class="modal-price"><span class="old-price">₦20,000</span> <strong>₦15,000</strong></p>
         <p>Black heavyweight tee featuring the WANTED WORLD mugshot graphic and signature WW sleeve mark.</p>
         <div class="sizes">
           <button data-size="S">S</button>
           <button data-size="M">M</button>
           <button data-size="L">L</button>
           <button data-size="XL">XL</button>
+        </div>
+        <button class="size-guide-toggle" id="sizeGuideToggle">SIZE GUIDE +</button>
+        <div class="size-guide" id="sizeGuide">
+          <div><strong>S</strong><span>Available</span></div>
+          <div><strong>M</strong><span>Available</span></div>
+          <div><strong>L</strong><span>Available</span></div>
+          <div><strong>XL</strong><span>Available</span></div>
+          <p>For exact garment measurements or help choosing a size, contact WANTED WORLD on WhatsApp before ordering.</p>
         </div>
         <button class="button button-dark full" id="addToCart">ADD TO BAG</button>
       </div>

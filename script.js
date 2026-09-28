@@ -1,8 +1,15 @@
 const PRODUCT = {
   name: "WANTED NO. 1",
-  price: 0, // Replace 0 with the real price in naira.
-  priceLabel: "₦XX,XXX",
-  image: "assets/mugshot-tee.png"
+  price: 15000,
+  oldPrice: 20000,
+  priceLabel: "₦15,000",
+  image: "assets/product-mockup.png"
+};
+
+const DELIVERY_FEES = {
+  lagos: 0,
+  abuad: 0,
+  other: 6000
 };
 
 let cart = JSON.parse(localStorage.getItem("wantedWorldCart") || "[]");
@@ -17,9 +24,39 @@ function money(n) {
   return "₦" + n.toLocaleString("en-NG");
 }
 
+// Generates a premium-looking order reference for each checkout attempt.
+// Format: WW-YYMMDD-XXXX (example: WW-260927-4821)
+function generateOrderNumber() {
+  const now = new Date();
+  const yy = String(now.getFullYear()).slice(-2);
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  const random = (window.crypto && crypto.getRandomValues)
+    ? crypto.getRandomValues(new Uint32Array(1))[0] % 10000
+    : Math.floor(Math.random() * 10000);
+  return `WW-${yy}${mm}${dd}-${String(random).padStart(4, "0")}`;
+}
+
 function saveCart() {
   localStorage.setItem("wantedWorldCart", JSON.stringify(cart));
   renderCart();
+}
+
+function getSubtotal() {
+  return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+}
+
+function getDeliveryFee() {
+  const location = $("#deliveryLocation").value;
+  return Object.prototype.hasOwnProperty.call(DELIVERY_FEES, location) ? DELIVERY_FEES[location] : null;
+}
+
+function updateTotals() {
+  const subtotal = getSubtotal();
+  const delivery = getDeliveryFee();
+  $("#cartSubtotal").textContent = money(subtotal);
+  $("#deliveryFee").textContent = delivery === null ? "Select location" : (delivery === 0 ? "FREE" : money(delivery));
+  $("#cartTotal").textContent = delivery === null ? money(subtotal) : money(subtotal + delivery);
 }
 
 function renderCart() {
@@ -27,7 +64,7 @@ function renderCart() {
   const box = $("#cartItems");
   if (!cart.length) {
     box.innerHTML = '<p class="empty-cart">Your bag is empty.</p>';
-    $("#cartTotal").textContent = "₦0";
+    updateTotals();
     return;
   }
 
@@ -43,8 +80,7 @@ function renderCart() {
     </div>
   `).join("");
 
-  const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-  $("#cartTotal").textContent = PRODUCT.price ? money(total) : "₦XX,XXX";
+  updateTotals();
 }
 
 window.removeItem = function(i) {
@@ -79,6 +115,16 @@ overlay.onclick = closeCart;
 $("#quickView").onclick = openModal;
 $("#modalClose").onclick = closeModal;
 
+// Product gallery
+const galleryMain = $("#galleryMain");
+document.querySelectorAll(".gallery-thumb").forEach(btn => {
+  btn.onclick = () => {
+    galleryMain.src = btn.dataset.image;
+    document.querySelectorAll(".gallery-thumb").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  };
+});
+
 document.querySelectorAll(".sizes button").forEach(btn => {
   btn.onclick = () => {
     selectedSize = btn.dataset.size;
@@ -86,6 +132,10 @@ document.querySelectorAll(".sizes button").forEach(btn => {
     btn.classList.add("selected");
   };
 });
+
+$("#sizeGuideToggle").onclick = () => {
+  $("#sizeGuide").classList.toggle("open");
+};
 
 $("#addToCart").onclick = () => {
   if (!selectedSize) {
@@ -100,17 +150,78 @@ $("#addToCart").onclick = () => {
   openCart();
 };
 
+$("#deliveryLocation").addEventListener("change", updateTotals);
+
 $("#checkout").onclick = () => {
   if (!cart.length) {
     alert("Your bag is empty.");
     return;
   }
-  // Replace this number with the WANTED WORLD WhatsApp number, including country code.
-  const whatsappNumber = "234XXXXXXXXXX";
-  const lines = cart.map(i => `• ${i.name} — Size ${i.size} — Qty ${i.qty}`);
-  const total = PRODUCT.price ? money(cart.reduce((s,i) => s + i.price*i.qty, 0)) : "price to be confirmed";
-  const message = `Hello WANTED WORLD, I'd like to order:%0A${encodeURIComponent(lines.join("\n"))}%0A%0ATotal: ${encodeURIComponent(total)}`;
-  window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+
+  const name = $("#customerName").value.trim();
+  const phone = $("#customerPhone").value.trim();
+  const whatsapp = $("#customerWhatsApp").value.trim();
+  const locationKey = $("#deliveryLocation").value;
+  const address = $("#deliveryAddress").value.trim();
+
+  if (!name || !phone || !whatsapp || !locationKey || !address) {
+    alert("Please complete all order details before continuing.");
+    return;
+  }
+
+  const deliveryFee = DELIVERY_FEES[locationKey];
+  const locationLabel = locationKey === "lagos" ? "Lagos" : locationKey === "abuad" ? "ABUAD" : "Other location";
+  const subtotal = getSubtotal();
+  const total = subtotal + deliveryFee;
+  const orderNumber = generateOrderNumber();
+  const orderReference = $("#orderReference");
+  if (orderReference) {
+    orderReference.innerHTML = `<span>ORDER NO.</span><strong>${orderNumber}</strong>`;
+    orderReference.classList.add("show");
+  }
+  const lines = cart.map(i => `• ${i.name} — Size ${i.size} — Qty ${i.qty} — ${i.priceLabel}`);
+  const message = [
+    "WANTED WORLD — ORDER REQUEST",
+    `ORDER NO.: ${orderNumber}`,
+    "",
+    ...lines,
+    "",
+    `Customer: ${name}`,
+    `Phone: ${phone}`,
+    `WhatsApp: ${whatsapp}`,
+    `Delivery location: ${locationLabel}`,
+    `Delivery address: ${address}`,
+    `Delivery fee: ${deliveryFee === 0 ? "FREE" : money(deliveryFee)}`,
+    `Total: ${money(total)}`,
+    "",
+    "Payment: To be confirmed via WhatsApp"
+  ].join("\n");
+
+  const whatsappNumber = "2349169980427";
+  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
 };
 
 renderCart();
+
+// WANTED NO. 1 campaign intro
+const intro = document.getElementById("intro");
+const introVideo = document.getElementById("introVideo");
+const introSkip = document.getElementById("introSkip");
+
+document.body.classList.add("intro-active");
+
+function closeIntro() {
+  if (!intro || intro.classList.contains("hidden")) return;
+  intro.classList.add("hidden");
+  document.body.classList.remove("intro-active");
+  try { sessionStorage.setItem("wwIntroSeen", "1"); } catch(e) {}
+  setTimeout(() => { if (intro) intro.remove(); }, 650);
+}
+
+introSkip.addEventListener("click", closeIntro);
+introVideo.addEventListener("ended", closeIntro);
+introVideo.addEventListener("error", closeIntro);
+
+try {
+  if (sessionStorage.getItem("wwIntroSeen") === "1") closeIntro();
+} catch(e) {}

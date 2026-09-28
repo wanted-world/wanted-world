@@ -1,26 +1,26 @@
-# WANTED WORLD — Website V1
+WANTED WORLD — V1 FINAL UPDATE
 
-This is the first working storefront concept for WANTED WORLD.
+This version keeps the existing WANTED WORLD design and adds the supplied WANTED NO. 1 product imagery, promotional price, WhatsApp-only checkout, delivery rules, customer order fields, size guide, and contact details.
 
-## Included
-- Responsive homepage
-- WANTED WORLD logo
-- First-drop WANTED NO. 1
-- Shop section
-- Product quick-view
-- Size selection
-- Working cart saved in browser localStorage
-- WhatsApp checkout flow
-- About/brand section
-- Mobile layout
+GitHub Pages structure:
+- index.html
+- styles.css
+- script.js
+- assets/
 
-## Before launch
-1. Replace `₦XX,XXX` / `price: 0` in `script.js` with the actual product price.
-2. Replace `234XXXXXXXXXX` in `script.js` with the WANTED WORLD WhatsApp number.
-3. Replace the Instagram/WhatsApp links in `index.html`.
-4. Add real product photos/campaign photos when available.
-5. Connect a proper payment provider if you want customers to pay directly on the website.
-6. Upload the folder to your chosen web host.
+Required assets in assets/:
+- logo.jpeg
+- mugshot-tee.png
+- wanted-no1-intro.mp4
+- product-mockup.png
+- product-detail.jpeg
+- product-worn.jpeg
+- product-flat.jpeg
+- product-art.jpeg
 
-## Open locally
-Open `index.html` in a browser. No build step is required.
+WhatsApp checkout number: +234 916 998 0427
+Email: wantedworld2026@gmail.com
+Snapchat: @wantedworld2026
+Price: ₦20,000 crossed out / ₦15,000 promo
+Delivery: Free in Lagos and ABUAD; ₦6,000 elsewhere
+Payment: WhatsApp only

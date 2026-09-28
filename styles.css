@@ -111,3 +111,49 @@ footer{background:var(--black);color:white;padding:28px 4vw;display:flex;justify
   footer{gap:20px;flex-wrap:wrap}
   .modal-inner{grid-template-columns:1fr}
 }
+
+
+/* WANTED NO. 1 campaign intro */
+body.intro-active{overflow:hidden}
+.intro{position:fixed;inset:0;background:#000;z-index:100;display:flex;align-items:center;justify-content:center;opacity:1;visibility:visible;transition:opacity .55s ease,visibility .55s ease}
+.intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro video{width:100%;height:100%;object-fit:cover;display:block}
+.intro-skip{position:absolute;right:28px;bottom:26px;background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.65);padding:10px 14px;font:10px "DM Mono",monospace;letter-spacing:.12em}
+.intro-skip:hover{background:#fff;color:#000}
+@media(max-width:800px){.intro video{object-fit:cover}.intro-skip{right:18px;bottom:18px}}
+
+/* Final V1 product + checkout additions */
+.product-price{white-space:nowrap}
+.old-price{color:#777;text-decoration:line-through;margin-right:7px}
+.product-price strong,.modal-price strong{font-weight:600}
+.delivery-row{display:flex;justify-content:space-between;margin-bottom:16px;font:12px "DM Mono",monospace}
+.grand-total{border-top:1px solid #aaa;padding-top:16px;margin-top:4px}
+.order-form{border-top:1px solid var(--black);padding-top:18px;margin-top:4px;margin-bottom:18px}
+.form-title{font:11px "DM Mono",monospace;letter-spacing:.12em;margin:0 0 16px}
+.order-form label{display:block;font:9px "DM Mono",monospace;letter-spacing:.08em;margin-bottom:12px}
+.order-form input,.order-form select,.order-form textarea{display:block;width:100%;margin-top:6px;border:1px solid #aaa;background:white;padding:11px;font:12px "Space Grotesk",Arial,sans-serif;color:var(--black);outline:none}
+.order-form textarea{resize:vertical;min-height:70px}
+.order-form input:focus,.order-form select:focus,.order-form textarea:focus{border-color:var(--black)}
+.gallery-main{background:#e8e8e4}
+.gallery-main img{display:block;width:100%;height:auto}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:8px;background:var(--white)}
+.gallery-thumb{border:1px solid transparent;background:#eee;padding:0;overflow:hidden;aspect-ratio:1/1}
+.gallery-thumb.active{border-color:var(--black)}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.size-guide-toggle{background:none;border:0;border-bottom:1px solid var(--black);align-self:flex-start;padding:0 0 5px;font:10px "DM Mono",monospace;letter-spacing:.1em}
+.size-guide{display:none;border-bottom:1px solid #aaa;padding:14px 0 4px;margin-bottom:20px}
+.size-guide.open{display:block}
+.size-guide>div{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:8px 0;font:11px "DM Mono",monospace}
+.size-guide>p{font-size:11px;line-height:1.5;color:#666;margin:12px 0}
+.contact-links{flex-wrap:wrap}
+@media(max-width:800px){
+  .cart-drawer{padding:20px}
+  .order-form input,.order-form select,.order-form textarea{font-size:13px}
+  .gallery-thumbs{gap:5px}
+}
+
+
+.order-reference{display:none;border:1px solid var(--black);margin-top:12px;padding:12px;text-align:center;font-family:"DM Mono",monospace;letter-spacing:.08em}
+.order-reference.show{display:block}
+.order-reference span{display:block;font-size:9px;color:#777;margin-bottom:5px}
+.order-reference strong{font-size:13px;font-weight:500}
